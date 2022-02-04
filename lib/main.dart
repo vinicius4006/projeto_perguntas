@@ -69,13 +69,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
                : 
                Question("Finalizado")
              ,
-              Answer("PETR4", null),
-              Answer("RANI3", null),
-              Answer("VIIA3", null),
+              Answer("PETR4", _responder),
+              Answer("RANI3", _responder),
+              Answer("VIIA3", _responder),
               Card(
                 child: Text("$_perguntaSelecionada"),
               ),
-              Answer("Zerar", null),
+              Answer("Zerar", ()=>{setState(() => {_perguntaSelecionada = 0})}),
             ],
           ),
         ),
