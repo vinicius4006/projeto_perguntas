@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import "./question.dart";
-import 'respotas.dart';
+
+import 'package:projeto_perguntas/questionario.dart';
+import 'package:projeto_perguntas/resultado.dart';
+
+import 'respostas.dart';
 
 main() => runApp(new PerguntaApp());
 
@@ -13,35 +15,59 @@ class PerguntaApp extends StatefulWidget {
 class _PerguntaAppState extends State<PerguntaApp> {
   //const PerguntaApp({ Key? key }) : super(key: key);
   var _perguntaSelecionada = 0;
+  var _scoreTotal = 0;
 
   final _perguntas = const [
       {
-          "texto": "Ação do Momento:",
-          "respostas": ["PETR4", "VALE3", "IRBR3", "RANI3"]
+          "texto": "Qual caiu muito?:",
+          "respostas": [
+            {"texto" : "PETR4", "score": 1},
+             {"texto": "VALE3", "score": 1},
+              {"texto": "IRBR3", "score": 10},
+               {"texto": "RANI3", "score": 5}
+            ]
       },
       {
           "texto": "Mais cara?",
-          "respostas": ["SUZB3", "GNDI3", "VALE3", "VIIA3"]
+          "respostas": [
+            {"texto" : "SUZB3", "score": 8}, 
+            {"texto" : "GNDI3", "score": 6}, 
+            {"texto" : "VALE3", "score": 10}, 
+            {"texto" : "VIIA3", "score": 2}
+            ]
       },
       {
           "texto": "Menos valorizada?",
-          "respostas": ["MGLU3", "IRBR3", "OIBR3", "BRML3"]
+          "respostas": [
+            {"texto" : "MGLU3", "score": 6}, 
+            {"texto" : "IRBR3", "score": 10}, 
+            {"texto" : "OIBR3", "score": 9}, 
+            {"texto" : "BRML3", "score": 7}
+            ]
       },
       {
           "texto": "Mais dividendos?",
-          "respostas": ["PETR4", "CSNA3", "VALE3", "HASH11"]
+          "respostas": [
+          {"texto" : "PETR4", "score": 9}, 
+          {"texto" : "CSNA3", "score": 10}, 
+          {"texto" : "VALE3", "score": 8}, 
+          {"texto" : "HASH11", "score": 9}
+          ]
       },
        
     ];
 
-  void _responder() {
+  void _responder(int score) {
     if(temPerguntaSelecionada){
         setState(() {
         _perguntaSelecionada++;
+        _scoreTotal += score;
     });
     }
     
   }
+
+
 
   bool get temPerguntaSelecionada{
     return _perguntaSelecionada < _perguntas.length;
@@ -52,8 +78,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     
     //if(_perguntaSelecionada < _perguntas.length){
-    List<String> respostas = temPerguntaSelecionada ? 
-    _perguntas[_perguntaSelecionada].cast()["respostas"] : [];
+    
     //List<Widget> widgets = 
     //}
     
@@ -85,25 +110,19 @@ class _PerguntaAppState extends State<PerguntaApp> {
                 Colors.red,
               ])),
           child: temPerguntaSelecionada ? 
-          Column(
-            children: <Widget>[
-              (_perguntaSelecionada < _perguntas.length)
-                  ? Question(_perguntas[_perguntaSelecionada]["texto"].toString())
-                  : Question("Finalizado"),
-                 
-              ...respostas.map((e) => Answer(e, _responder)).toList(),
-            ],
-          ) : Center(
+          Questionario(
+            perguntaSelecionada: _perguntaSelecionada, 
+            perguntas: _perguntas, 
+            showAnswer: _responder
+            ) : 
+          Center(
             child: Column(
               children: [
-                Text(
-                  "Parabéns",
-                  style: TextStyle(fontSize: 28),
-                ),
+                Resultado(),
                 Answer(
                   "Reniciar",
                   () => {
-                        setState(() => {_perguntaSelecionada = 0})
+                       setState(() => {_perguntaSelecionada = 0})
                       }),
               ],
             ),
