@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import  "./question.dart";
+import 'respotas.dart';
+
 main() => runApp(new PerguntaApp());
 
 class PerguntaApp extends StatefulWidget {
@@ -36,7 +38,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
     "Mais rentável?",
   ];
 
-  @override //
+  @override 
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -67,41 +69,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
                : 
                Question("Finalizado")
              ,
-              ElevatedButton(
-                onPressed: () => _responder(),
-                child: Text(
-                  "PETR4",
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => _responder(),
-                child: Text(
-                  "RANI3",
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => _responder(),
-                child: Text(
-                  "VIIA3",
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
+              Answer("PETR4", null),
+              Answer("RANI3", null),
+              Answer("VIIA3", null),
               Card(
                 child: Text("$_perguntaSelecionada"),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    _perguntaSelecionada = 0;
-                  });
-                  },
-                child: Text(
-                  "Zerar",
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
+              Answer("Zerar", null),
             ],
           ),
         ),
