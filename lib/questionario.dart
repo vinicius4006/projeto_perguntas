@@ -22,7 +22,7 @@ class Questionario extends StatelessWidget {
      bool get temPerguntaSelecionada{
     return perguntaSelecionada < perguntas.length;
   }
-  var as;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,13 @@ class Questionario extends StatelessWidget {
                   ? Question(perguntas[perguntaSelecionada]["texto"].toString())
                   : Question("Finalizado"),
                  
-              ...respostas.map((answer) 
-              => Answer(answer["texto"].toString(), () => showAnswer(int.parse(answer["score"].toString()))))
-              .toList(),
+              ...respostas.map((answer) {
+               return 
+               Answer(answer["texto"].toString(), () => showAnswer(int.parse(answer["score"].toString())));
+               
+               }
+
+              ).toList(),
             ],
           );
   }

@@ -64,7 +64,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         _scoreTotal += score;
     });
     }
-    
+    print(_scoreTotal);
   }
 
 
@@ -118,12 +118,19 @@ class _PerguntaAppState extends State<PerguntaApp> {
           Center(
             child: Column(
               children: [
-                Resultado(),
-                Answer(
-                  "Reniciar",
-                  () => {
-                       setState(() => {_perguntaSelecionada = 0})
-                      }),
+                Resultado(_scoreTotal),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(24.0),
+                    primary: Colors.white,
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: (){
+                  setState(() {
+                    _perguntaSelecionada = 0;
+                    _scoreTotal = 0;
+                  });
+                }, child: Text("Reiniciar"))
               ],
             ),
           ),
